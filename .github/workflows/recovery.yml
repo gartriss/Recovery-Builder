@@ -13,12 +13,12 @@ on:
   workflow_dispatch:
 
 env:
-  MANIFEST: https://github.com/PitchBlackTWRP/manifest_pb.git -b android-6.0
-  DEVICE: P635A50
-  DT_LINK: https://github.com/twrpdtgen/android_device_zte_P635A50/tree/full_ztesh6735m_35u_m-user-6.0-MRA58K-20160618.161555-release-keys
-  DT_PATH: device/zte/P635A50
-  TARGET: recoveryimage
-  TZ: Asia/manila
+  MANIFEST: https://github.com/PitchBlackRecoveryProject/manifest_pb
+  DEVICE: pb_camellia
+  DT_LINK: https://github.com/sabrina010209/device_xiaomi_camellia-twrp
+  DT_PATH: device/xiaomi/camellia
+  TARGET: bootimage
+  TZ: Europe/Minsk
 
 jobs:
   build:
