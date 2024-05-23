@@ -14,7 +14,7 @@ on:
 
 env:
   MANIFEST: https://github.com/PitchBlackRecoveryProject/manifest_pb
-  DEVICE: pb_camellia
+  DEVICE: camellia
   DT_LINK: https://github.com/sabrina010209/device_xiaomi_camellia-twrp
   DT_PATH: device/xiaomi/camellia
   TARGET: bootimage
@@ -55,14 +55,14 @@ jobs:
        - name: Build
          run: |
               cd work
-              . build/envsetup.sh &&lunch omni_$DEVICE-eng &&export ALLOW_MISSING_DEPENDENCIES=true && mka $TARGET
+              . build/envsetup.sh &&lunch pb_$DEVICE-eng &&export ALLOW_MISSING_DEPENDENCIES=true && mka $TARGET
              
        - name: Release recovery image
          uses: softprops/action-gh-release@v1
          env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
          with:
-          tag_name: android_6.0
-          name: TWRP-P635A50
+          tag_name: android_12.1
+          name: pb_camellia
           files: | 
-            work/out/target/product/P635A50/recovery.img
+            work/out/target/product/camellia/boot.img
