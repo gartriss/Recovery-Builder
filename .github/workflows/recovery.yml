@@ -13,11 +13,11 @@ on:
   workflow_dispatch:
 
 env:
-  MANIFEST: https://github.com/PitchBlackRecoveryProject/manifest_pb
-  DEVICE: camellia
-  DT_LINK: https://github.com/sabrina010209/device_xiaomi_camellia-twrp
-  DT_PATH: device/xiaomi/camellia
-  TARGET: bootimage
+  MANIFEST: https://github.com/gartriss/platform_manifest_twrp_omni
+  DEVICE: thor_e
+  DT_LINK: https://github.com/gartriss/twrp_device_vernee_thor_e.git
+  DT_PATH: device/vernee/thor_e
+  TARGET: recoveryimage
   TZ: Europe/Minsk
 
 jobs:
@@ -47,7 +47,7 @@ jobs:
          run: |
              mkdir work
              cd work
-             repo init -u $MANIFEST --depth=1
+             repo init -u $MANIFEST -b twrp-7.1 --depth=1
              repo sync -c -j4 --force-sync --no-clone-bundle --no-tags
              repo sync -c -j4 --force-sync --no-clone-bundle --no-tags
              git clone --depth=1 $DT_LINK $DT_PATH
@@ -55,14 +55,14 @@ jobs:
        - name: Build
          run: |
               cd work
-              . build/envsetup.sh &&lunch pb_$DEVICE-eng &&export ALLOW_MISSING_DEPENDENCIES=true && mka $TARGET
+              . build/envsetup.sh &&lunch omni_$DEVICE-eng &&export ALLOW_MISSING_DEPENDENCIES=true && mka $TARGET
              
        - name: Release recovery image
          uses: softprops/action-gh-release@v1
          env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
          with:
-          tag_name: android_12.1
-          name: pb_camellia
+          tag_name: android_7.1
+          name: twrp_thor_e
           files: | 
-            work/out/target/product/camellia/boot.img
+            work/out/target/product/thor_e/recovery.img
